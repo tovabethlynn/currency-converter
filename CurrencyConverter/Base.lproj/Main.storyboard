@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -39,31 +41,55 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="odc-vm-7aK" detailTextLabel="o7f-3z-Gqx" style="IBUITableViewCellStyleValue1" id="QqE-wN-iwq">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="QqE-wN-iwq" customClass="CurrencyTableViewCell" customModule="CurrencyConverter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="128" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QqE-wN-iwq" id="0Cu-Vk-qpj">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="odc-vm-7aK">
-                                            <rect key="frame" x="15" y="18" width="39" height="24"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LrQ-uJ-4NV">
+                                            <rect key="frame" x="77" y="8" width="100" height="43"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="LrQ-uJ-4NV" secondAttribute="height" multiplier="100:43" id="G8c-d6-aJC"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="textColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o7f-3z-Gqx">
-                                            <rect key="frame" x="308.5" y="18" width="51.5" height="24"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nq-Ml-3Di">
+                                            <rect key="frame" x="260" y="8" width="100" height="43"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="7nq-Ml-3Di" secondAttribute="height" multiplier="100:43" id="HkL-od-cpQ"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="textColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="af0-Rr-Mj1">
+                                            <rect key="frame" x="15" y="14" width="43" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="af0-Rr-Mj1" secondAttribute="height" multiplier="1:1" constant="13" id="oCQ-NX-Sh8"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="af0-Rr-Mj1" firstAttribute="leading" secondItem="0Cu-Vk-qpj" secondAttribute="leadingMargin" constant="7" id="0aD-hF-8tY"/>
+                                        <constraint firstItem="LrQ-uJ-4NV" firstAttribute="leading" secondItem="af0-Rr-Mj1" secondAttribute="trailing" constant="19" id="DAv-Oh-c3O"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="7nq-Ml-3Di" secondAttribute="trailing" constant="7" id="EYt-dr-9oe"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7nq-Ml-3Di" secondAttribute="bottom" constant="0.5" id="UiD-lX-96B"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="LrQ-uJ-4NV" secondAttribute="bottom" constant="0.5" id="Y3r-L3-n2S"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="af0-Rr-Mj1" secondAttribute="bottom" constant="7.5" id="aKR-nY-nY5"/>
+                                        <constraint firstItem="af0-Rr-Mj1" firstAttribute="top" secondItem="0Cu-Vk-qpj" secondAttribute="topMargin" constant="6" id="fTv-TR-huN"/>
+                                        <constraint firstItem="LrQ-uJ-4NV" firstAttribute="top" secondItem="0Cu-Vk-qpj" secondAttribute="topMargin" id="k64-5K-PKr"/>
+                                        <constraint firstItem="7nq-Ml-3Di" firstAttribute="top" secondItem="0Cu-Vk-qpj" secondAttribute="topMargin" id="qvW-pC-5O8"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
+                                    <outlet property="codeView" destination="LrQ-uJ-4NV" id="C0U-97-zFt"/>
+                                    <outlet property="flagView" destination="af0-Rr-Mj1" id="9df-iH-ANj"/>
+                                    <outlet property="rateView" destination="7nq-Ml-3Di" id="iIS-dv-Sjg"/>
                                     <segue destination="BYZ-38-t0r" kind="presentation" identifier="conversionCalculator" id="G0u-gF-Ayp"/>
                                 </connections>
                             </tableViewCell>
