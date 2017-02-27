@@ -28,6 +28,8 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateBase(notification:)), name: NSNotification.Name(rawValue: "updateBase"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(closedCalculator), name: NSNotification.Name(rawValue: "closeCalc"), object: nil)
+        
     }
     
     
@@ -95,6 +97,16 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     }
     
     
+    func closedCalculator() {
+        
+        if let selected = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selected, animated: true)
+        }
+        dimView.removeFromSuperview()
+        
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -132,21 +144,21 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        //dim out background view
+        dimView.frame = self.view.frame
+        self.view.addSubview(self.dimView)
+        dimView.backgroundColor = UIColor.lightGray
+        dimView.alpha = 0
+        
+        UIView.animate(withDuration: 0.35, animations: {
+            self.dimView.alpha = 0.6
+        })
+        
         if segue.identifier == "selectBase" {
             
             let baseVC = segue.destination as! BaseCurrencySelectorViewController
             baseVC.modalPresentationStyle = .custom
             baseVC.transitioningDelegate = self
-            
-            //dim out background view
-            dimView.frame = self.view.frame
-            self.view.addSubview(self.dimView)
-            dimView.backgroundColor = UIColor.lightGray
-            dimView.alpha = 0
-            
-            UIView.animate(withDuration: 0.35, animations: {
-                self.dimView.alpha = 0.6
-            })
             
             // add base country to the list of countries
             var completeCountries = countries
@@ -158,6 +170,9 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
         } else if segue.identifier == "conversionCalculator" {
             
             let conversionVC = segue.destination as! CalculatorViewController
+            conversionVC.modalPresentationStyle = .custom
+            conversionVC.transitioningDelegate = self
+            
             conversionVC.title = "Currency Calculator"
             conversionVC.base = base
             if let index = tableView.indexPath(for: (sender as! UITableViewCell)) {
@@ -174,8 +189,11 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        
-        return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
+        if let _ = presented as? BaseCurrencySelectorViewController {
+            return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
+        } else {
+            return ThreeQuarterSizePresentationController(presentedViewController: presented, presenting: presenting)
+        }
         
     }
     
@@ -189,6 +207,17 @@ class HalfSizePresentationController : UIPresentationController {
     
     override var frameOfPresentedViewInContainerView : CGRect {
         return CGRect(x: 0, y: containerView!.bounds.height / 2, width: containerView!.bounds.width, height: containerView!.bounds.height / 2)
+    }
+    
+}
+
+
+
+
+class ThreeQuarterSizePresentationController : UIPresentationController {
+    
+    override var frameOfPresentedViewInContainerView : CGRect {
+        return CGRect(x: 0, y: containerView!.bounds.height / 4, width: containerView!.bounds.width, height: containerView!.bounds.height * 3/4)
     }
     
 }

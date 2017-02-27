@@ -89,6 +89,7 @@ class CalculatorViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func close(_ sender: UIBarButtonItem) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "closeCalc"), object: self, userInfo: nil)
         baseCurrency.resignFirstResponder()
         self.dismiss(animated: true, completion: nil)
     }
