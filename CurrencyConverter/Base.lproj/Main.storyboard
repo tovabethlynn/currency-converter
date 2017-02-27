@@ -266,7 +266,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Calculator" id="Jph-KT-LlP">
-                                        <barButtonItem key="leftBarButtonItem" title="Close" id="FY8-6r-Elu">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="FY8-6r-Elu">
                                             <connections>
                                                 <action selector="close:" destination="BYZ-38-t0r" id="C50-qR-hRH"/>
                                             </connections>
