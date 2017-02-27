@@ -108,6 +108,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Currency Converter" id="gxf-bN-J4L"/>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="fcd-ku-xhU">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <attributedString key="attributedTitle"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="currencySelector" destination="h16-dp-ZEe" id="cWz-Mx-noD"/>
                     </connections>

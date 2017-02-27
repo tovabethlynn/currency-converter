@@ -16,12 +16,23 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     var base = "USD"
     var countries = [String]()
     var rates = [String]()
-    var loadDate = ""
+    var loadDate: String?
     
     let dimView = UIView()
+    var activityIndicator = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.refreshControl?.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        activityIndicator.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2)
+        activityIndicator.activityIndicatorViewStyle = .white
+        activityIndicator.backgroundColor = UIColor(red:0x50/255, green:0x50/255, blue:0x50/255, alpha: 0.5)
+        activityIndicator.layer.cornerRadius = 10
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         
         loadData()
         
@@ -35,6 +46,12 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     
     
     func loadData() {
+        
+        // clear the table (for refresh or changing base)
+        countries.removeAll()
+        rates.removeAll()
+        loadDate = nil
+        tableView.reloadData()
         
         let urlString = "https://api.fixer.io/latest?base=\(base)"
         guard let url = URL(string: urlString) else {
@@ -75,12 +92,18 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
                     
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
+                        self.tableView.refreshControl?.endRefreshing()
+                        self.activityIndicator.stopAnimating()
                     }
                     
                 }
                 
             } catch {
                 print("Failed to load: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.tableView.refreshControl?.endRefreshing()
+                    self.activityIndicator.stopAnimating()
+                }
             }
         }
         task.resume()
@@ -92,9 +115,10 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
         
         if let info = notification.userInfo as? [String:AnyObject] {
             base = info["selected"] as! String
-            loadData()
             currencySelector.setTitle(base, for: .normal)
             currencySelector.setImage(UIImage(named: "\(base).png"), for: .normal)
+            activityIndicator.startAnimating()
+            loadData()
         }
         
         dimView.removeFromSuperview()
@@ -142,7 +166,11 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Rates valid from \(loadDate)"
+        if loadDate != nil {
+            return "Rates valid from \(loadDate!)"
+        } else {
+            return nil
+        }
     }
 
     
