@@ -16,13 +16,14 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     var base = "USD"
     var countries = [String]()
     var rates = [String]()
+    var loadDate = ""
     
     let dimView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadData()  // crashing when loads, need to do dispatch_async? also, can make faster?
+        loadData()
         
         currencySelector.setTitle(base, for: .normal)
         
@@ -56,6 +57,10 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
             do {
                 let json = try JSONSerialization.jsonObject(with: responseData, options: []) as! [String:AnyObject]
                 print(json)
+                if let date = json["date"] as? String {
+                    self.loadDate = date
+                }
+                
                 if let rates = json["rates"] as? [String:Any] {
                     
                     let countryList = rates.keys
@@ -123,6 +128,21 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return countries.count
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.lightGray
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Rates valid from \(loadDate)"
     }
 
     
