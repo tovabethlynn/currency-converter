@@ -60,7 +60,10 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
                     self.countries = countryList.sorted { $0 < $1 }
                     
                     self.rates = self.countries.map({ (country) -> String in
-                        return String(format: "%.2f", rates[country] as! Double)
+                        var formattedRate = NumberFormatter.localizedString(from: rates[country] as! NSNumber, number: .currency)
+                        formattedRate.remove(at: formattedRate.startIndex)  // remove dollar sign
+                        return formattedRate
+                        
                     })
                     
                     DispatchQueue.main.async {
