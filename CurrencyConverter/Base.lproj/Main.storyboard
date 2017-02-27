@@ -23,21 +23,28 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h16-dp-ZEe">
-                                    <rect key="frame" x="122" y="14" width="131" height="72"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                    <state key="normal" title="Button"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h16-dp-ZEe">
+                                    <rect key="frame" x="122" y="26" width="131" height="60"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="131" id="0g8-rI-NAu"/>
+                                        <constraint firstAttribute="height" constant="60" id="l21-Ph-nb0"/>
+                                    </constraints>
+                                    <color key="tintColor" red="0.20392156859999999" green="0.53333333329999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <inset key="titleEdgeInsets" minX="-142" minY="0.0" maxX="15" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="15" minY="15" maxX="73" maxY="15"/>
+                                    <state key="normal" title="USD" image="USD.png">
+                                        <color key="titleColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
                                     <connections>
                                         <segue destination="SlR-ns-kmu" kind="presentation" identifier="selectBase" id="Au2-EL-q1x"/>
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.20392156859999999" green="0.53333333329999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="h16-dp-ZEe" secondAttribute="trailing" constant="122" id="BKi-lw-8AT"/>
-                                <constraint firstAttribute="bottom" secondItem="h16-dp-ZEe" secondAttribute="bottom" constant="14" id="cLy-5A-gee"/>
-                                <constraint firstItem="h16-dp-ZEe" firstAttribute="top" secondItem="JcV-sP-eK1" secondAttribute="top" constant="14" id="kQ1-Gm-Xer"/>
-                                <constraint firstItem="h16-dp-ZEe" firstAttribute="leading" secondItem="JcV-sP-eK1" secondAttribute="leading" constant="122" id="wEN-Hv-lQC"/>
+                                <constraint firstItem="h16-dp-ZEe" firstAttribute="centerY" secondItem="JcV-sP-eK1" secondAttribute="centerY" constant="6" id="dIp-Lt-opa"/>
+                                <constraint firstItem="h16-dp-ZEe" firstAttribute="centerX" secondItem="JcV-sP-eK1" secondAttribute="centerX" id="kQW-OF-qYj"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -45,7 +52,7 @@
                                 <rect key="frame" x="0.0" y="128" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QqE-wN-iwq" id="0Cu-Vk-qpj">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LrQ-uJ-4NV">
@@ -100,6 +107,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Currency Converter" id="gxf-bN-J4L"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="currencySelector" destination="h16-dp-ZEe" id="cWz-Mx-noD"/>
                     </connections>
@@ -294,4 +302,7 @@
             <point key="canvasLocation" x="965.60000000000002" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="USD.png" width="200" height="105"/>
+    </resources>
 </document>

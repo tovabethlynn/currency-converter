@@ -84,6 +84,7 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
             base = info["selected"] as! String
             loadData()
             currencySelector.setTitle(base, for: .normal)
+            currencySelector.setImage(UIImage(named: "\(base).png"), for: .normal)
         }
         
         dimView.removeFromSuperview()
