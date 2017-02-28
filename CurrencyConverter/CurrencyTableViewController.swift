@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import Alamofire
 
 class CurrencyTableViewController: UITableViewController, UIViewControllerTransitioningDelegate {
     
@@ -47,66 +48,59 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     
     func loadData() {
         
-        // clear the table (for refresh or changing base)
+        // clear the table (for refreshing or changing base)
         countries.removeAll()
         rates.removeAll()
         loadDate = nil
         tableView.reloadData()
         
+        // retrieve the data
         let urlString = "https://api.fixer.io/latest?base=\(base)"
-        guard let url = URL(string: urlString) else {
-            print("URL error")
-            return
-        }
         
-        let task = URLSession.shared.dataTask(with: url) {
-            (data, response, error) in
-            
-            guard error == nil else {
-                print(error!)
-                return
-            }
-            guard let responseData = data else {
-                print("No data")
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: responseData, options: []) as! [String:AnyObject]
-                print(json)
-                if let date = json["date"] as? String {
+        Alamofire.request(urlString)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                    
+                case .success(let value):
+                    
+                    guard let json = value as? [String: Any],
+                        let date = json["date"] as? String,
+                        let rates = json["rates"] as? [String:Any] else {
+                            self.displayAlert()
+                            return
+                    }
+                    
                     self.loadDate = date
-                }
-                
-                if let rates = json["rates"] as? [String:Any] {
                     
                     let countryList = rates.keys
                     self.countries = countryList.sorted { $0 < $1 }
-                    
+
                     self.rates = self.countries.map({ (country) -> String in
                         var formattedRate = NumberFormatter.localizedString(from: rates[country] as! NSNumber, number: .currency)
                         formattedRate.remove(at: formattedRate.startIndex)  // remove dollar sign
                         return formattedRate
-                        
                     })
+
+                    self.tableView.reloadData()
                     
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        self.tableView.refreshControl?.endRefreshing()
-                        self.activityIndicator.stopAnimating()
-                    }
-                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.displayAlert()
                 }
                 
-            } catch {
-                print("Failed to load: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    self.tableView.refreshControl?.endRefreshing()
-                    self.activityIndicator.stopAnimating()
-                }
-            }
+            self.tableView.refreshControl?.endRefreshing()
+            self.activityIndicator.stopAnimating()
         }
-        task.resume()
+        
+    }
+    
+    
+    func displayAlert() {
+                
+        let alert = UIAlertController(title: "Error", message: "There was an error loading the data. Please try again later.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in }))
+        self.present(alert, animated: false, completion: nil)
         
     }
     
