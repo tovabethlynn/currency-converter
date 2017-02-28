@@ -42,17 +42,29 @@ class CalculatorViewController: UIViewController, UITextFieldDelegate {
         
         baseCurrency.becomeFirstResponder()
         
+        
         // set up textfield/keyboard
         baseCurrency.keyboardType = .numberPad
         baseCurrency.borderStyle = .none
         baseCurrency.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         baseCurrency.text = "1.00"
         
+        
         // set up labels
-        conversionLabel.text = "1 \(base) = \(selectedRate) \(selected)"
         baseLabel.text = base
         selectedCurrency.text = selectedRate
         selectedLabel.text = selected
+        
+        let mutableString = NSMutableAttributedString()
+        mutableString.append(NSAttributedString(string: "1 \(base) equals\n", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0), NSForegroundColorAttributeName: UIColor.darkGray]))
+        mutableString.append(NSAttributedString(string: "\(selectedRate) \(selected)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24.0), NSForegroundColorAttributeName: UIColor(colorLiteralRed: 0x25/255, green: 0x25/255, blue: 0x25/255, alpha: 1)]))
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 2
+        paragraphStyle.firstLineHeadIndent = 15
+        paragraphStyle.headIndent = 15
+        mutableString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, mutableString.length))
+        conversionLabel.attributedText = mutableString
+        
         
         // add borders to base and selected currency divisions
         let midLine = CALayer()
