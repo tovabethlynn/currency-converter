@@ -187,7 +187,7 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //dim out background view
-        dimView.frame = self.view.frame
+        dimView.frame = CGRect(x: 0, y: tableView.contentOffset.y, width: self.view.frame.width, height: self.view.frame.height)
         self.view.addSubview(self.dimView)
         dimView.backgroundColor = UIColor.lightGray
         dimView.alpha = 0
