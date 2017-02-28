@@ -10,9 +10,15 @@ import UIKit
 import Foundation
 import Alamofire
 
-class CurrencyTableViewController: UITableViewController, UIViewControllerTransitioningDelegate {
+class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate {
+    
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var currencySelector: UIButton!
+    
+    let refreshControl = UIRefreshControl()
+    
+    
 
     var base = "USD"
     var countries = [String]()
@@ -25,7 +31,8 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.refreshControl?.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        self.tableView.addSubview(refreshControl)
         
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         activityIndicator.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2)
@@ -89,7 +96,7 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
                     self.displayAlert()
                 }
                 
-            self.tableView.refreshControl?.endRefreshing()
+            self.refreshControl.endRefreshing()
             self.activityIndicator.stopAnimating()
         }
         
@@ -138,28 +145,28 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return countries.count
     }
     
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
     
     
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.lightGray
     }
     
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if loadDate != nil {
             return "Rates valid from \(loadDate!)"
         } else {
@@ -168,7 +175,7 @@ class CurrencyTableViewController: UITableViewController, UIViewControllerTransi
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CurrencyTableViewCell
         
