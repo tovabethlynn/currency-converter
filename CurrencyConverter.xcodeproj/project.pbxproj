@@ -40,6 +40,7 @@
 		25047AD61E616538002F902A /* CNY.png in Resources */ = {isa = PBXBuildFile; fileRef = 25047AB71E616538002F902A /* CNY.png */; };
 		25047AD71E616538002F902A /* AUD.png in Resources */ = {isa = PBXBuildFile; fileRef = 25047AB81E616538002F902A /* AUD.png */; };
 		25047ADA1E6169E8002F902A /* EUR.png in Resources */ = {isa = PBXBuildFile; fileRef = 25047AD91E6169E8002F902A /* EUR.png */; };
+		25047AE11E655C45002F902A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25047ADF1E6556B1002F902A /* fontawesome-webfont.ttf */; };
 		255E45A01E6151D400312ADC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C72A541E5E8910009083B0 /* AppDelegate.swift */; };
 		2562E03F1E5EB04500593544 /* BaseCurrencySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562E03E1E5EB04500593544 /* BaseCurrencySelectorViewController.swift */; };
 		25C72A571E5E8910009083B0 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C72A561E5E8910009083B0 /* CalculatorViewController.swift */; };
@@ -84,6 +85,7 @@
 		25047AB71E616538002F902A /* CNY.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CNY.png; path = Resources/CNY.png; sourceTree = SOURCE_ROOT; };
 		25047AB81E616538002F902A /* AUD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AUD.png; path = Resources/AUD.png; sourceTree = SOURCE_ROOT; };
 		25047AD91E6169E8002F902A /* EUR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EUR.png; path = Resources/EUR.png; sourceTree = SOURCE_ROOT; };
+		25047ADF1E6556B1002F902A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		2562E03E1E5EB04500593544 /* BaseCurrencySelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCurrencySelectorViewController.swift; sourceTree = "<group>"; };
 		25C72A511E5E8910009083B0 /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25C72A541E5E8910009083B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		25047AD81E61653F002F902A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				25047ADF1E6556B1002F902A /* fontawesome-webfont.ttf */,
 				25047A9A1E616538002F902A /* CHF.png */,
 				25047A9B1E616538002F902A /* GBP.png */,
 				25047A9C1E616538002F902A /* SEK.png */,
@@ -264,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25047AE11E655C45002F902A /* fontawesome-webfont.ttf in Resources */,
 				25047AD11E616538002F902A /* DKK.png in Resources */,
 				25047AC61E616538002F902A /* MYR.png in Resources */,
 				25047AD51E616538002F902A /* CAD.png in Resources */,

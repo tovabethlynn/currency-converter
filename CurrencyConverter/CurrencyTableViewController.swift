@@ -16,10 +16,8 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBOutlet weak var currencySelector: UIButton!
     
-    let refreshControl = UIRefreshControl()
+    @IBOutlet weak var refreshButton: UIButton!
     
-    
-
     var base = "USD"
     var countries = [String]()
     var rates = [String]()
@@ -27,12 +25,15 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     let dimView = UIView()
     var activityIndicator = UIActivityIndicatorView()
+    var errorLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
-        self.tableView.addSubview(refreshControl)
+        
+        let refreshIcon = NSAttributedString(string: String(format: "%C", arguments: [0xf021]), attributes: [NSFontAttributeName: UIFont(name: "FontAwesome", size: 20)!, NSForegroundColorAttributeName: UIColor.white])
+        refreshButton.setAttributedTitle(refreshIcon, for: .normal)
+        
         
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         activityIndicator.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2)
@@ -40,7 +41,6 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
         activityIndicator.backgroundColor = UIColor(red:0x50/255, green:0x50/255, blue:0x50/255, alpha: 0.5)
         activityIndicator.layer.cornerRadius = 10
         view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
         
         loadData()
         
@@ -54,6 +54,8 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     
     func loadData() {
+        
+        activityIndicator.startAnimating()
         
         // clear the table (for refreshing or changing base)
         countries.removeAll()
@@ -89,6 +91,8 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
                         return formattedRate
                     })
 
+                    self.currencySelector.isHidden = false
+                    self.tableView.isHidden = false
                     self.tableView.reloadData()
                     
                 case .failure(let error):
@@ -96,18 +100,35 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
                     self.displayAlert()
                 }
                 
-            self.refreshControl.endRefreshing()
             self.activityIndicator.stopAnimating()
+
         }
         
     }
     
     
     func displayAlert() {
-                
-        let alert = UIAlertController(title: "Error", message: "There was an error loading the data. Please try again later.", preferredStyle: .alert)
+        
+        currencySelector.isHidden = true
+        tableView.isHidden = true
+        
+        let alert = UIAlertController(title: "Error Loading Data", message: "Refresh to try again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in }))
-        self.present(alert, animated: false, completion: nil)
+        self.present(alert, animated: true, completion: nil)
+        
+        errorLabel.text = "Refresh to reload"
+        errorLabel.sizeToFit()
+        errorLabel.center = self.view.center
+        self.view.addSubview(errorLabel)
+        
+    }
+    
+    
+    
+    @IBAction func refresh(_ sender: Any) {
+        
+        errorLabel.removeFromSuperview()
+        loadData()
         
     }
     

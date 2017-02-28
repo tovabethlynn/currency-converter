@@ -43,12 +43,26 @@
                                             <segue destination="SlR-ns-kmu" kind="presentation" identifier="selectBase" id="kjn-T4-LfU"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bil-X9-TV2">
+                                        <rect key="frame" x="330" y="41" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="6Fx-uG-zuh"/>
+                                            <constraint firstAttribute="height" constant="30" id="ZTE-wV-0ss"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="refresh:" destination="4KM-TA-l0s" eventType="touchUpInside" id="RUh-ws-ziB"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.53333333329999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="qzN-4x-rdA" firstAttribute="centerY" secondItem="jyE-JT-xDG" secondAttribute="centerY" constant="6" id="Gt9-q6-k2B"/>
                                     <constraint firstItem="qzN-4x-rdA" firstAttribute="centerX" secondItem="jyE-JT-xDG" secondAttribute="centerX" id="Jak-hp-r9s"/>
+                                    <constraint firstAttribute="trailing" secondItem="bil-X9-TV2" secondAttribute="trailing" constant="15" id="QnH-xG-UV8"/>
                                     <constraint firstAttribute="height" constant="100" id="aGz-tJ-gPr"/>
+                                    <constraint firstItem="bil-X9-TV2" firstAttribute="centerY" secondItem="jyE-JT-xDG" secondAttribute="centerY" constant="6" id="odd-0D-lLc"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sGH-Rd-ETD">
@@ -127,12 +141,13 @@
                     </view>
                     <connections>
                         <outlet property="currencySelector" destination="qzN-4x-rdA" id="UZt-FY-OpX"/>
+                        <outlet property="refreshButton" destination="bil-X9-TV2" id="9xp-Hf-DCD"/>
                         <outlet property="tableView" destination="sGH-Rd-ETD" id="f04-YB-iKL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Kx-27-lW5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="188" y="139"/>
+            <point key="canvasLocation" x="188" y="138.98050974512745"/>
         </scene>
         <!--Base Currency Selector View Controller-->
         <scene sceneID="HaV-jc-Aqq">
