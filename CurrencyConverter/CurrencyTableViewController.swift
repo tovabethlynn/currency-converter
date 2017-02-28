@@ -14,6 +14,7 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var topView: UIView!
     @IBOutlet weak var currencySelector: UIButton!
     
     @IBOutlet weak var refreshButton: UIButton!
@@ -31,6 +32,17 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         
+        currencySelector.setTitle(base, for: .normal)
+        currencySelector.imageView?.contentMode = .scaleAspectFit
+        let underline = CAShapeLayer()
+        underline.frame = CGRect(x: 0, y: currencySelector.frame.height, width: currencySelector.frame.width, height: 0.5)
+        underline.path = UIBezierPath(rect: underline.bounds).cgPath
+        underline.strokeColor = UIColor.darkGray.cgColor
+        underline.fillColor = nil
+        underline.lineDashPattern = [4,2]
+        currencySelector.layer.addSublayer(underline)
+        
+        
         let refreshIcon = NSAttributedString(string: String(format: "%C", arguments: [0xf021]), attributes: [NSFontAttributeName: UIFont(name: "FontAwesome", size: 20)!, NSForegroundColorAttributeName: UIColor.white])
         refreshButton.setAttributedTitle(refreshIcon, for: .normal)
         
@@ -42,9 +54,9 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
         activityIndicator.layer.cornerRadius = 10
         view.addSubview(activityIndicator)
         
+        
         loadData()
         
-        currencySelector.setTitle(base, for: .normal)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateBase(notification:)), name: NSNotification.Name(rawValue: "updateBase"), object: nil)
         
@@ -262,7 +274,9 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
         if let _ = presented as? BaseCurrencySelectorViewController {
             return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
         } else {
-            return ThreeQuarterSizePresentationController(presentedViewController: presented, presenting: presenting)
+            let partialSize = PartialSizePresentationController(presentedViewController: presented, presenting: presenting)
+            partialSize.originY = topView.frame.height
+            return partialSize
         }
         
     }
@@ -284,10 +298,12 @@ class HalfSizePresentationController : UIPresentationController {
 
 
 
-class ThreeQuarterSizePresentationController : UIPresentationController {
+class PartialSizePresentationController : UIPresentationController {
+    
+    var originY: CGFloat!
     
     override var frameOfPresentedViewInContainerView : CGRect {
-        return CGRect(x: 0, y: containerView!.bounds.height / 4, width: containerView!.bounds.width, height: containerView!.bounds.height * 3/4)
+        return CGRect(x: 0, y: originY, width: containerView!.bounds.width, height: containerView!.bounds.height - originY)
     }
     
 }

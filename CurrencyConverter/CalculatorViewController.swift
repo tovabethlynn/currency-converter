@@ -56,8 +56,8 @@ class CalculatorViewController: UIViewController, UITextFieldDelegate {
         selectedLabel.text = selected
         
         let mutableString = NSMutableAttributedString()
-        mutableString.append(NSAttributedString(string: "1 \(base) equals\n", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 18.0), NSForegroundColorAttributeName: UIColor.darkGray]))
-        mutableString.append(NSAttributedString(string: "\(selectedRate) \(selected)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24.0), NSForegroundColorAttributeName: UIColor(colorLiteralRed: 0x25/255, green: 0x25/255, blue: 0x25/255, alpha: 1)]))
+        mutableString.append(NSAttributedString(string: "1 \(base) equals\n", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16.0), NSForegroundColorAttributeName: UIColor.darkGray]))
+        mutableString.append(NSAttributedString(string: "\(selectedRate) \(selected)", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20.0), NSForegroundColorAttributeName: UIColor(colorLiteralRed: 0x25/255, green: 0x25/255, blue: 0x25/255, alpha: 1)]))
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 2
         paragraphStyle.firstLineHeadIndent = 15
@@ -126,10 +126,6 @@ class CalculatorViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
-//    func doneNumberPad() {
-//        print(baseCurrency.text)
-//    }
     
     func textFieldDidChange() {
 
