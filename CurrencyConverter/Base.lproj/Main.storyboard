@@ -301,7 +301,7 @@
                                     <navigationItem title="Calculator" id="Jph-KT-LlP">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="FY8-6r-Elu">
                                             <connections>
-                                                <action selector="close:" destination="BYZ-38-t0r" id="C50-qR-hRH"/>
+                                                <action selector="done:" destination="BYZ-38-t0r" id="6Po-fU-aX2"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>

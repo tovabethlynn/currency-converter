@@ -48,7 +48,7 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateBase(notification:)), name: NSNotification.Name(rawValue: "updateBase"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(closedCalculator), name: NSNotification.Name(rawValue: "closeCalc"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(closeCalc), name: NSNotification.Name(rawValue: "closeCalc"), object: nil)
         
     }
     
@@ -148,7 +148,7 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     
-    func closedCalculator() {
+    func closeCalc() {
         
         if let selected = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selected, animated: true)
@@ -215,9 +215,9 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //dim out background view
-        dimView.frame = CGRect(x: 0, y: tableView.contentOffset.y, width: self.view.frame.width, height: self.view.frame.height)
+        dimView.frame = self.view.frame
         self.view.addSubview(self.dimView)
-        dimView.backgroundColor = UIColor.lightGray
+        dimView.backgroundColor = UIColor.black
         dimView.alpha = 0
         
         UIView.animate(withDuration: 0.35, animations: {

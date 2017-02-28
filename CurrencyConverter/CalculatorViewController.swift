@@ -94,16 +94,35 @@ class CalculatorViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        baseCurrency.becomeFirstResponder()
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // set up gesture recognizer to cancel view on tap outside of view
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(dismissView))
+        gesture.cancelsTouchesInView = false
+        self.view.window?.addGestureRecognizer(gesture)
+        
+    }
     
     
+    func dismissView(sender: UITapGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.ended {
+            let location: CGPoint = sender.location(in: nil)
+            
+            if !self.view.point(inside: self.view.convert(location, from: self.view.window), with: nil) {
+                self.view.window?.removeGestureRecognizer(sender)
+                done(self)
+            }
+        }
+    }
     
-    @IBAction func close(_ sender: UIBarButtonItem) {
+    
+    @IBAction func done(_ sender: Any) {
+        
         NotificationCenter.default.post(name: Notification.Name(rawValue: "closeCalc"), object: self, userInfo: nil)
         baseCurrency.resignFirstResponder()
         self.dismiss(animated: true, completion: nil)
+        
     }
     
     
