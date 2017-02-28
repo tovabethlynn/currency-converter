@@ -43,7 +43,7 @@ class CurrencyTableViewController: UIViewController, UITableViewDelegate, UITabl
         currencySelector.layer.addSublayer(underline)
         
         
-        let refreshIcon = NSAttributedString(string: String(format: "%C", arguments: [0xf021]), attributes: [NSFontAttributeName: UIFont(name: "FontAwesome", size: 20)!, NSForegroundColorAttributeName: UIColor.white])
+        let refreshIcon = NSAttributedString(string: String(format: "%C", arguments: [0xf021]), attributes: [NSFontAttributeName: UIFont(name: "FontAwesome", size: 20)!])
         refreshButton.setAttributedTitle(refreshIcon, for: .normal)
         
         
